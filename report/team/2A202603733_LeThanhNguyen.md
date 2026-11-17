@@ -17,7 +17,7 @@
   - Gọi `durability.issue_refund` với quote đầy đủ, host tự kiểm tra approval và trừ phần tiền đã hoàn trước đó (per-order cap).
   - Idempotency key `refund:{claim_id}` đảm bảo gọi lại nhiều lần vẫn chỉ sinh 1 dòng bồi hoàn duy nhất.
   - Chuyển tiếp tham số `crash_at` vào host và để `InjectedCrash` lan truyền ra ngoài, đảm bảo an toàn sau crash (T11, T12 pass).
-- **Viết kiểm thử:** Viết bộ test `src/tests/test_member_a_durability_and_shapes.py` kiểm tra chuyên biệt cho Idempotency, Crash recovery, Order cap và Policy denied audit.
+- **Viết kiểm thử:** Viết bộ test `src/tests/test_member_a.py` kiểm tra chuyên biệt cho Idempotency, Crash recovery, Order cap và Policy denied audit.
 - **Tài liệu & Báo cáo:** Khởi tạo bảng thành viên trong `TEAM.md`, soạn thảo đề xuất kiến trúc trong `report/team/decision_adr.md` và các mục giải pháp kỹ thuật trong `report/team/group_report.md`.
 
 ## 3. Đóng góp cụ thể
@@ -26,7 +26,7 @@
   - `src/lab8/shapes/workflow.py`: Hoàn thiện toàn bộ logic tuần tự (12/12 public claims pass ở seed 11, 62/62 student tests pass).
   - `src/lab8/shapes/single.py`: Hoàn thiện ReAct agent với bounded loop, dispatching read-only tools, ghi nhận thought/decision vào trace (12/12 public claims pass ở seed 11, 62/62 student tests pass).
 - **Kiểm thử tác giả:**
-  - `src/tests/test_member_a_durability_and_shapes.py`: 4 test cases kiểm tra sâu về idempotency replay, crash-resume resilience, policy_denied audit khi sai approval, và partial refund cap.
+  - `src/tests/test_member_a.py`: 4 test cases kiểm tra sâu về idempotency replay, crash-resume resilience, policy_denied audit khi sai approval, và partial refund cap.
 - **Quyết định kỹ thuật đã đưa ra:**
   - Chọn không dùng model call trong Workflow để đạt 100% deterministic, 0 variance, chi phí token = 0 và chống hoàn toàn Prompt Injection.
   - Trong Single Agent, chỉ cho phép LLM gợi ý tool đọc; sau vòng lặp ReAct, host là bên duy nhất xác thực và ghi tiền bồi hoàn.
@@ -37,7 +37,7 @@
 - **Kết quả chạy pytest của Member A:**
   - `python -m pytest -q -m student -o addopts= -k workflow`: **62 passed**, 240 deselected.
   - `python -m pytest -q -m student -o addopts= -k "single and not orchestrator and not workflow and not swarm"`: **62 passed**, 240 deselected.
-  - `python -m pytest -v tests/test_member_a_durability_and_shapes.py`: **4 passed** in 0.31s.
+  - `python -m pytest -v tests/test_member_a.py`: **4 passed** in 0.31s.
   - `python -m pytest -q` (host suite): **58 passed**, 248 deselected in 16.73s.
   - `python -m lab8.check_submission` (phần shapes của A):
     - `[ OK ] shape workflow: format đúng, 12/12 claim public pass ở seed 11`

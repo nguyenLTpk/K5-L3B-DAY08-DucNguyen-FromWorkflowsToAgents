@@ -26,7 +26,7 @@ Gợi ý chia vai:
 
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
-| Lê Thành Nguyên | Workflow & Single Agent | 03b06f9 | tests/test_member_a_durability_and_shapes.py |
+| Lê Thành Nguyên | Workflow & Single Agent | 03b06f9 | tests/test_member_a.py |
 | Thành viên B | Orchestrator & Evaluation | PENDING | tests/test_member_b.py |
 
 ## Cá nhân
@@ -48,17 +48,17 @@ Sao chép mục dưới đây cho từng thành viên.
 - Cài đặt Shape A (workflow tuần tự) và Shape B (single ReAct agent).
 - Đảm bảo cơ chế tính bồi hoàn ở code, gửi quote đầy đủ cho host `durability.issue_refund`.
 - Idempotency và an toàn crash (chuyển tiếp `crash_at`, không nuốt `InjectedCrash`).
-- Viết bộ test `tests/test_member_a_durability_and_shapes.py`.
+- Viết bộ test `tests/test_member_a.py`.
 
 ### Đóng góp cụ thể
 
 - `src/lab8/shapes/workflow.py`: Hoàn thiện toàn bộ logic tuần tự (pass 62/62 student tests).
 - `src/lab8/shapes/single.py`: Hoàn thiện ReAct agent với bounded loop 8 bước (pass 62/62 student tests).
-- `src/tests/test_member_a_durability_and_shapes.py`: 4 test cases kiểm tra idempotency, crash resilience, policy denial audit, order cap.
+- `src/tests/test_member_a.py`: 4 test cases kiểm tra idempotency, crash resilience, policy denial audit, order cap.
 
 ### Bằng chứng
 
 - Pytest suite cho `workflow` đạt 62/62 pass.
 - Pytest suite cho `single` đạt 62/62 pass.
-- 4 test mới trong `test_member_a_durability_and_shapes.py` pass.
+- 4 test mới trong `test_member_a.py` pass.
 - Host pytest: 58 passed.
