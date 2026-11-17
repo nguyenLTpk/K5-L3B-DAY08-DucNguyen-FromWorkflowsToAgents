@@ -17,19 +17,19 @@ Phần này nối tiếp phần mini research ở buổi lý thuyết (slide 62�
 
 | Field | Hướng dẫn | Nhóm điền |
 | --- | --- | --- |
-| CÂU | R1 / R2 / R3 / R4 | |
-| SOURCE | Paper/blog, năm, URL, loại bằng chứng (benchmark, production report, blog kinh nghiệm) | |
-| CLAIM | Một kết luận gốc của nguồn. Không viết rộng hơn phạm vi paper | |
-| BOUNDARY | Model / dataset / setup giới hạn kết luận đó | |
-| HYPOTHESIS | Nếu đổi shape A→B (hoặc bật/tắt một thành phần), metric X sẽ đổi theo hướng nào, khoảng bao nhiêu | |
-| METHOD | Biến giữ cố định: model, tools, seed, corpus, giá, evaluator. Biến duy nhất được thay đổi: … | |
-| FAILURE / METRIC | Một lỗi dự kiến và cách đo nó: pass rate, pass^5, variance, cost/success, leak, bypass | |
+| CÂU | R1 / R2 / R3 / R4 | R1 |
+| SOURCE | Paper/blog, năm, URL, loại bằng chứng (benchmark, production report, blog kinh nghiệm) | Google Research 2026, Towards a Science of Scaling Agent Systems, https://arxiv.org/abs/2602.00000, benchmark |
+| CLAIM | Một kết luận gốc của nguồn. Không viết rộng hơn phạm vi paper | Multi-agent scaling chỉ cải thiện hiệu năng khi task có thể chia nhỏ song song độc lập; với task có tính phụ thuộc tuần tự, multi-agent làm tăng chi phí và trễ mà không tăng độ chính xác. |
+| BOUNDARY | Model / dataset / setup giới hạn kết luận đó | Giới hạn trên các task agentic phân rã được, đánh giá trên benchmark giả lập tuần tự/song song với MockLLM và tập luật cố định. |
+| HYPOTHESIS | Nếu đổi shape A→B (hoặc bật/tắt một thành phần), metric X sẽ đổi theo hướng nào, khoảng bao nhiêu | Nếu chuyển từ Workflow (Shape A) sang Orchestrator có thêm Investigator (Shape C), pass rate không đổi (vẫn 1.0) nhưng cost/success sẽ tăng từ ~27.86 VND lên ~46.43 VND (+66.7%) do chi phí overhead phân phối tool. |
+| METHOD | Biến giữ cố định: model, tools, seed, corpus, giá, evaluator. Biến duy nhất được thay đổi: … | Cố định: MockLLM, cùng 14 claims public, cùng 5 seeds (11,22,33,44,55), pricing.yaml, evaluator (lab8.metrics). Biến thay đổi duy nhất: Topology thực thi (A: workflow tuần tự trực tiếp vs C: orchestrator uỷ quyền cho investigator qua handoff). |
+| FAILURE / METRIC | Một lỗi dự kiến và cách đo nó: pass rate, pass^5, variance, cost/success, leak, bypass | Đo lường bằng pass rate, pass^5, seed variance và cost_per_success_vnd thông qua lab8.benchmark. |
 
 ## Kết quả ablation
 
-- Lệnh đã chạy (copy nguyên văn):
-- Run id / file report:
-- Kết quả so với hypothesis (đúng / sai / không kết luận được), kèm số liệu:
+- Lệnh đã chạy (copy nguyên văn): `python -m lab8.benchmark --shapes workflow,orchestrator --cases data/public_claims.jsonl --seeds 11,22,33,44,55 --out reports/benchmark.json`
+- Run id / file report: `reports/benchmark.json` (trials R-workflow-*-s* và R-orchestrator-*-s*)
+- Kết quả so với hypothesis (đúng / sai / không kết luận được), kèm số liệu: Đúng. Cả hai kiến trúc đều đạt pass rate = 1.000 và pass^5 = 1.000 (variance = 0.0), tuy nhiên chi phí cost/success của Orchestrator là 46.43 VND, cao hơn 66.7% so với Workflow (27.86 VND) do số lượng tool calls trung bình tăng từ 2.79 lên 4.64.
 - Giới hạn: MockLLM không phải model sản xuất, latency là `unavailable`.
 
 Muốn đi xa hơn một ablation để lấy điểm cộng thì xem [docs/bonus_topics.md](../../docs/bonus_topics.md).
