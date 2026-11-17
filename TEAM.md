@@ -26,7 +26,7 @@ Gợi ý chia vai:
 
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
-| Lê Thành Nguyên | Workflow & Single Agent | 8bc9bd9 | tests/test_member_a_durability_and_shapes.py |
+| Lê Thành Nguyên | Workflow & Single Agent | 03b06f9 | tests/test_member_a_durability_and_shapes.py |
 | Thành viên B | Orchestrator & Evaluation | PENDING | tests/test_member_b.py |
 
 ## Cá nhân

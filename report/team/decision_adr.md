@@ -4,7 +4,7 @@
 `Shape chọn` phải là đúng một trong: `workflow`, `single`, `orchestrator`, `swarm`. Đây là shape được chấm cổng hidden.
 
 - Shape chọn: workflow
-- Commit hash: 8bc9bd9
+- Commit hash: 03b06f9
 - Run id dẫn chứng: PENDING_MEMBER_B_BENCHMARK
 - Pass rate / pass^5 / seed min-max / variance: PENDING_MEMBER_B_BENCHMARK
 - Cost per success (mô phỏng, VND): PENDING_MEMBER_B_BENCHMARK
